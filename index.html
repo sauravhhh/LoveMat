@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoveMatch - Find Your Perfect Match</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-heart"></i>
+                <h1>LoveMatch</h1>
+            </div>
+            <p class="tagline">Find your perfect match based on compatibility</p>
+        </header>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="section-indicator">
+            <div class="indicator active" id="indicator-1"></div>
+            <div class="indicator" id="indicator-2"></div>
+            <div class="indicator" id="indicator-3"></div>
+            <div class="indicator" id="indicator-4"></div>
+            <div class="indicator" id="indicator-5"></div>
+            <div class="indicator" id="indicator-6"></div>
+            <div class="indicator" id="indicator-7"></div>
+            <div class="indicator" id="indicator-8"></div>
+        </div>
+
+        <div id="profile-setup">
+            <!-- Section 1: Love Style -->
+            <div class="card" id="section-1">
+                <div class="card-title">
+                    <i class="fas fa-heart"></i>
+                    <span>Your Love Style</span>
+                </div>
+                <p style="margin-bottom: 15px; color: #666; font-size: 14px;">Select what best describes your approach to relationships:</p>
+                <div class="option-group">
+                    <div class="option" data-value="romantic">
+                        <i class="fas fa-heart"></i> Romantic
+                    </div>
+                    <div class="option" data-value="adventurous">
+                        <i class="fas fa-mountain"></i> Adventurous
+                    </div>
+                    <div class="option" data-value="casual">
+                        <i class="fas fa-coffee"></i> Casual
+                    </div>
+                    <div class="option" data-value="serious">
+                        <i class="fas fa-ring"></i> Serious
+                    </div>
+                    <div class="option" data-value="traditional">
+                        <i class="fas fa-home"></i> Traditional
+                    </div>
+                    <div class="option" data-value="modern">
+                        <i class="fas fa-rocket"></i> Modern
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Relationship Goals -->
+            <div class="card" id="section-2" style="display: none;">
+                <div class="card-title">
+                    <i class="fas fa-bullseye"></i>
+                    <span>Relationship Goals</span>
+                </div>
+                <p style="margin-bottom: 15px; color: #666; font-size: 14px;">What are you looking for in a relationship?</p>
+                <div class="multi-select-hint">You can select multiple options</div>
+                <div class="option-group">
+                    <div class="option" data-value="long-term">
+                        <i class="fas fa-infinity"></i> Long-term
+                    </div>
+                    <div class="option" data-value="marriage">
+                        <i class="fas fa-ring"></i> Marriage
+                    </div>
+                    <div class="option" data-value="casual-dating">
+                        <i class="fas fa-cocktail"></i> Casual dating
+                    </div>
+                    <div class="option" data-value="friendship">
+                        <i class="fas fa-user-friends"></i> Friendship
+                    </div>
+                    <div class="option" data-value="fun">
+                        <i class="fas fa-laugh"></i> Fun
+                    </div>
+                    <div class="option" data-value="travel-partner">
+                        <i class="fas fa-plane"></i> Travel partner
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Relationship Style -->
+            <div class="card" id="section-3" style="display: none;">
+                <div class="card-title">
+                    <i class="fas fa-handshake"></i>
+                    <span>Relationship Style</span>
+                </div>
+                <p style="margin-bottom: 15px; color: #666; font-size: 14px;">What type of relationship are you open to?</p>
+                <div class="multi-select-hint">You can select multiple options</div>
+                <div class="option-group">
+                    <div class="option" data-value="monogamous">
+                        <i class="fas fa-ring"></i> Monogamous
+                    </div>
+                    <div class="option" data-value="open">
+                        <i class="fas fa-door-open"></i> Open
+                    </div>
+                    <div class="option" data-value="polyamorous">
+                        <i class="fas fa-infinity"></i> Polyamorous
+                    </div>
+                    <div class="option" data-value="long-distance">
+                        <i class="fas fa-map-marker-alt"></i> Long-distance
+                    </div>
+                    <div class="option" data-value="local">
+                        <i class="fas fa-home"></i> Local
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Communication Style -->
+            <div class="card" id="section-4" style="display: none;">
+                <div class="card-title">
+                    <i class="fas fa-comments"></i>
+                    <span>Communication Style</span>
+                </div>
+                <p style="margin-bottom: 15px; color: #666; font-size: 14px;">How do you prefer to communicate?</p>
+                <div class="multi-select-hint">You can select multiple options</div>
+                <div class="option-group">
+                    <div class="option" data-value="direct">
+                        <i class="fas fa-bullhorn"></i> Direct
+                    </div>
+                    <div class="option" data-value="passive">
+                        <i class="fas fa-volume-down"></i> Passive
+                    </div>
+                    <div class="option" data-value="assertive">
+                        <i class="fas fa-fist-raised"></i> Assertive
+                    </div>
+                    <div class="option" data-value="text-heavy">
+                        <i class="fas fa-keyboard"></i> Text-heavy
+                    </div>
+                    <div class="option" data-value="call-heavy">
+                        <i class="fas fa-phone"></i> Call-heavy
+                    </div>
+                    <div class="option" data-value="in-person">
+                        <i class="fas fa-user"></i> In-person
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Social Media -->
+            <div class="card" id="section-5" style="display: none;">
+                <div class="card-title">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Social Media Usage</span>
+                </div>
+                <p style="margin-bottom: 15px; color: #666; font-size: 14px;">How often do you use social media?</p>
+                <div class="option-group">
+                    <div class="option" data-value="very-often">
+                        <i class="fas fa-mobile-alt"></i> Very often
+                    </div>
+                    <div class="option" data-value="often">
+                        <i class="fas fa-thumbs-up"></i> Often
+                    </div>
+                    <div class="option" data-value="sometimes">
+                        <i class="fas fa-clock"></i> Sometimes
+                    </div>
+                    <div class="option" data-value="rarely">
+                        <i class="fas fa-power-off"></i> Rarely
+                    </div>
+                    <div class="option" data-value="never">
+                        <i class="fas fa-ban"></i> Never
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Sleeping Habits -->
+            <div class="card" id="section-6" style="display: none;">
+                <div class="card-title">
+                    <i class="fas fa-bed"></i>
+                    <span>Sleeping Habits</span>
+                </div>
+                <p style="margin-bottom: 15px; color: #666; font-size: 14px;">What's your sleep pattern?</p>
+                <div class="option-group">
+                    <div class="option" data-value="early-bird">
+                        <i class="fas fa-sun"></i> Early bird
+                    </div>
+                    <div class="option" data-value="night-owl">
+                        <i class="fas fa-moon"></i> Night owl
+                    </div>
+                    <div class="option" data-value="light-sleeper">
+                        <i class="fas fa-feather"></i> Light sleeper
+                    </div>
+                    <div class="option" data-value="heavy-sleeper">
+                        <i class="fas fa-weight-hanging"></i> Heavy sleeper
+                    </div>
+                    <div class="option" data-value="irregular">
+                        <i class="fas fa-random"></i> Irregular
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Family Plans -->
+            <div class="card" id="section-7" style="display: none;">
+                <div class="card-title">
+                    <i class="fas fa-users"></i>
+                    <span>Family Plans</span>
+                </div>
+                <p style="margin-bottom: 15px; color: #666; font-size: 14px;">What are your thoughts on family and children:</p>
+                <div class="option-group">
+                    <div class="option" data-value="want-kids-soon">
+                        <i class="fas fa-baby"></i> Want kids soon
+                    </div>
+                    <div class="option" data-value="want-kids-later">
+                        <i class="fas fa-baby-carriage"></i> Want kids later
+                    </div>
+                    <div class="option" data-value="unsure">
+                        <i class="fas fa-question-circle"></i> Unsure
+                    </div>
+                    <div class="option" data-value="no-kids">
+                        <i class="fas fa-ban"></i> Don't want kids
+                    </div>
+                    <div class="option" data-value="already-have">
+                        <i class="fas fa-child"></i> Already have kids
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Values -->
+            <div class="card" id="section-8" style="display: none;">
+                <div class="card-title">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>Values & Priorities</span>
+                </div>
+                <p style="margin-bottom: 15px; color: #666; font-size: 14px;">Rate how important these values are to you:</p>
+                
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span><i class="fas fa-briefcase"></i> Career</span>
+                        <span id="career-value">5</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="career">
+                </div>
+                
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span><i class="fas fa-users"></i> Family</span>
+                        <span id="family-value">5</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="family">
+                </div>
+                
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span><i class="fas fa-heart"></i> Relationships</span>
+                        <span id="relationships-value">5</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="relationships">
+                </div>
+                
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span><i class="fas fa-dumbbell"></i> Health & Fitness</span>
+                        <span id="health-value">5</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="health">
+                </div>
+                
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span><i class="fas fa-piggy-bank"></i> Financial Stability</span>
+                        <span id="financial-value">5</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="financial">
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="btn btn-back" id="back-btn" onclick="previousSection()" style="display: none;">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <button class="btn" id="next-btn" onclick="nextSection()">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="result-container" id="result-container">
+            <div class="card" id="result-card">
+                <div class="card-title">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Your Compatibility Score</span>
+                </div>
+                <div class="percentage" id="percentage">0%</div>
+                <p style="color: #666; margin-bottom: 20px;">Based on your preferences and values</p>
+                
+                <div class="feedback-title">
+                    <i class="fas fa-lightbulb"></i> Suggestions to Improve
+                </div>
+                <div class="feedback-list" id="feedback-list">
+                    <!-- Feedback will be populated by JavaScript -->
+                </div>
+                
+                <div class="feedback-title">
+                    <i class="fas fa-exclamation-triangle"></i> Areas to Consider
+                </div>
+                <div class="cons-list" id="cons-list">
+                    <!-- Cons will be populated by JavaScript -->
+                </div>
+                
+                <div class="share-download-container">
+                    <button class="btn" onclick="downloadResults()">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareResults()">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                </div>
+                
+                <button class="btn" onclick="restartQuiz()">
+                    <i class="fas fa-redo"></i> Start Over
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Made with <span class="heart">❤️</span> by Sauravhhh
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+  </html>

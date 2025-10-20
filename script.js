@@ -411,38 +411,59 @@ function downloadResults() {
     });
 }
 
-// Create detailed share text
-let shareText = `🎯 LoveMatch Compatibility Results 🎯\n\n`;
-shareText += `My Compatibility Score: ${percentage}\n\n`;
-
-shareText += `💡 Strength Insights:\n`;
-feedbackItems.slice(0, 3).forEach((item, index) => {
-    shareText += `${index + 1}. ${item.replace(/^• /, '')}\n`;
-});
-
-shareText += `\n⚠️ Areas to Consider:\n`;
-consItems.slice(0, 2).forEach((item, index) => {
-    shareText += `${index + 1}. ${item.replace(/^• /, '')}\n`;
-});
-
-shareText += `\n🔗 Find your perfect match at LoveMatch!`; // Removed URL from text
-
-if (navigator.share) {
-    navigator.share({
-        title: 'LoveMatch Compatibility Results',
-        text: shareText,
-        url: 'https://sauravhhh.github.io/LoveMatch' // Hardcoded URL
-    })
-    .then(() => {
-        showToast('Shared successfully!');
-    })
-    .catch((error) => {
-        // Fallback to clipboard if share fails
-        copyToClipboard(shareText + '\n\nhttps://sauravhhh.github.io/LoveMatch');
+function shareResults() {
+    const percentage = document.getElementById('percentage').textContent;
+    const feedbackItems = Array.from(document.querySelectorAll('.feedback-item')).map(item => 
+        item.textContent.trim()
+    );
+    const consItems = Array.from(document.querySelectorAll('.cons-item')).map(item => 
+        item.textContent.trim()
+    );
+    
+    // Create detailed share text
+    let shareText = `🎯 LoveMatch Compatibility Results 🎯\n\n`;
+    shareText += `My Compatibility Score: ${percentage}\n\n`;
+    
+    shareText += `💡 Strength Insights:\n`;
+    feedbackItems.slice(0, 3).forEach((item, index) => {
+        shareText += `${index + 1}. ${item.replace(/^• /, '')}\n`;
     });
-} else {
-    // Fallback to clipboard
-    copyToClipboard(shareText + '\n\nhttps://sauravhhh.github.io/LoveMatch');
+    
+    shareText += `\n⚠️ Areas to Consider:\n`;
+    consItems.slice(0, 2).forEach((item, index) => {
+        shareText += `${index + 1}. ${item.replace(/^• /, '')}\n`;
+    });
+    
+    shareText += `\n🔗 Find your perfect match at LoveMatch!\n`;
+    shareText += `${window.location.href}`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'LoveMatch Compatibility Results',
+            text: shareText,
+            url: window.location.href
+        })
+        .then(() => {
+            showToast('Shared successfully!');
+        })
+        .catch((error) => {
+            // Fallback to clipboard if share fails
+            copyToClipboard(shareText);
+        });
+    } else {
+        // Fallback to clipboard
+        copyToClipboard(shareText);
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+        .then(() => {
+            showToast('Results copied to clipboard!');
+        })
+        .catch(() => {
+            showToast('Unable to share results');
+        });
 }
 
 function showToast(message) {

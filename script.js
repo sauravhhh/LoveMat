@@ -424,7 +424,7 @@ function shareResults() {
     let shareText = `🎯 LoveMatch Compatibility Results 🎯\n\n`;
     shareText += `My Compatibility Score: ${percentage}\n\n`;
     
-    shareText += `💡 Suggestions to Improve:\n`;
+    shareText += `💡 Strength Insights:\n`;
     feedbackItems.slice(0, 3).forEach((item, index) => {
         shareText += `${index + 1}. ${item.replace(/^• /, '')}\n`;
     });
